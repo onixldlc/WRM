@@ -1,0 +1,17 @@
+{
+    "configurations": [
+      {
+        "name": "Gaming",
+        "monitor": 1,
+        "resolution": "1920x1080",
+        "frequency": 144
+      },
+      {
+        "name": "Work",
+        "monitor": 1,
+        "resolution": "2560x1440",
+        "frequency": 60
+      }
+    ]
+  }
+  
