@@ -3,13 +3,11 @@
       {
         "name": "Gaming Setup",
         "monitor": 1,
-        "monitor_name": "",
         "resolution": "1920x1080",
         "frequency": 180
       },
       {
         "name": "Work Setup",
-        "monitor": 0,
         "monitor_name": "27G2G5",
         "resolution": "2560x1440",
         "frequency": 60
