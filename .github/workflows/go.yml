@@ -1,4 +1,4 @@
-# This workflow will build a golang project
+# This workflow will build a Go project only when commit messages start with fix:, add:, or feat:
 # For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-go
 
 name: Go
@@ -11,6 +11,11 @@ on:
 
 jobs:
   build:
+    # Conditional execution: Only run the build job if the commit message starts with fix:, add:, or feat:
+    if: |
+      startsWith(github.event.head_commit.message, 'fix:') ||
+      startsWith(github.event.head_commit.message, 'add:') ||
+      startsWith(github.event.head_commit.message, 'feat:')
     runs-on: windows-latest
 
     steps:
