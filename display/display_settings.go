@@ -12,6 +12,11 @@ var (
 	changeDisplaySettingsExW = user32.NewProc("ChangeDisplaySettingsExW")
 )
 
+const (
+	CDS_UPDATEREGISTRY = 0x00000001
+	CDS_TEST           = 0x00000002
+)
+
 // ChangeDisplaySettingsEx wraps the Windows API call
 func ChangeDisplaySettingsEx(deviceName *uint16, lpDevMode *DEVMODE, hwnd uintptr, dwflags uint32, lParam uintptr) int32 {
 	ret, _, _ := changeDisplaySettingsExW.Call(
@@ -41,8 +46,6 @@ func SetResolution(deviceName string, resolution string, frequency uint32) error
 	}
 	var selectedMode *DEVMODE
 	for _, mode := range modes {
-		// fmt.Printf("%v, %v", frequency == 0, mode.DmDisplayFrequency == frequency)
-		// fmt.Printf("%v, %v", frequency, mode.DmDisplayFrequency)
 		if int(mode.DmPelsWidth) == width && int(mode.DmPelsHeight) == height {
 			if frequency == 0 || mode.DmDisplayFrequency == frequency {
 				if selectedMode == nil || mode.DmDisplayFrequency > selectedMode.DmDisplayFrequency {
@@ -62,12 +65,17 @@ func SetResolution(deviceName string, resolution string, frequency uint32) error
 		fmt.Println("Operation cancelled.")
 		return nil
 	}
-	// Apply the settings
+	// Apply the settings with CDS_TEST flag first to validate
 	deviceNamePtr, _ := syscall.UTF16PtrFromString(deviceName)
-	result := ChangeDisplaySettingsEx(deviceNamePtr, selectedMode, 0, 0, 0)
+	result := ChangeDisplaySettingsEx(deviceNamePtr, selectedMode, 0, CDS_TEST, 0)
+	if result != 0 {
+		return fmt.Errorf("the requested graphics mode is not supported")
+	}
+	// Apply the settings and update the registry
+	result = ChangeDisplaySettingsEx(deviceNamePtr, selectedMode, 0, CDS_UPDATEREGISTRY, 0)
 	if result != 0 {
 		return fmt.Errorf("failed to change display settings")
 	}
-	fmt.Println("Resolution changed successfully.")
+	fmt.Println("Resolution changed successfully and saved to registry.")
 	return nil
 }
