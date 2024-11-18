@@ -18,7 +18,10 @@ func ListFrequenciesForResolution(monitorIndex int, resolution string) {
 		return
 	}
 	mi := monitors[monitorIndex]
-	deviceName := mi.FriendlyName
+
+	// Use the device name instead of the friendly name
+	deviceName := mi.DeviceName
+
 	modes, err := ListResolutions(deviceName)
 	if err != nil {
 		fmt.Println("Error listing frequencies:", err)

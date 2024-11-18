@@ -41,6 +41,8 @@ func SetResolution(deviceName string, resolution string, frequency uint32) error
 	}
 	var selectedMode *DEVMODE
 	for _, mode := range modes {
+		// fmt.Printf("%v, %v", frequency == 0, mode.DmDisplayFrequency == frequency)
+		// fmt.Printf("%v, %v", frequency, mode.DmDisplayFrequency)
 		if int(mode.DmPelsWidth) == width && int(mode.DmPelsHeight) == height {
 			if frequency == 0 || mode.DmDisplayFrequency == frequency {
 				if selectedMode == nil || mode.DmDisplayFrequency > selectedMode.DmDisplayFrequency {

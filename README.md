@@ -9,4 +9,7 @@ go build -o wrm.exe
 and boom you are done now all you need is to preconfigure your setup
 
 ## TODO:
-1. EVERYTHING! (still working on listing!)
+1. ~EVERYTHING! (still working on listing!)~ well... to a certain degree
+2. Error Logging
+3. Config backup incase of crashes
+4. a way to add config via cli

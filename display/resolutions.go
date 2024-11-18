@@ -76,6 +76,8 @@ func ListResolutions(deviceName string) ([]DEVMODE, error) {
 			break
 		}
 		modes = append(modes, devMode)
+		// Remove the print statement or keep it for debugging
+		// fmt.Printf("%v\n", devMode.DmDisplayFrequency)
 		iModeNum++
 	}
 	return modes, nil
@@ -102,7 +104,7 @@ func ListResolutionsForMonitor(monitorIndex int) {
 		fmt.Println("Error listing resolutions:", err)
 		return
 	}
-	fmt.Printf("Resolutions for %s (%s):\n", mi.FriendlyName, mi.DeviceName)
+	fmt.Printf("Resolutions for %s :\n", mi.FriendlyName)
 
 	// Collect unique resolutions
 	resolutionMap := make(map[string]Resolution)
@@ -119,16 +121,6 @@ func ListResolutionsForMonitor(monitorIndex int) {
 	for _, res := range resolutionMap {
 		resolutions = append(resolutions, res)
 	}
-
-	// // Sort resolutions from highest to lowest (width * height)
-	// sort.Slice(resolutions, func(i, j int) bool {
-	// 	pixelsI := resolutions[i].Width * resolutions[i].Height
-	// 	pixelsJ := resolutions[j].Width * resolutions[j].Height
-	// 	if pixelsI == pixelsJ {
-	// 		return resolutions[i].Width > resolutions[j].Width
-	// 	}
-	// 	return pixelsI > pixelsJ
-	// })
 
 	// Sort resolutions by their string representation in descending order
 	sort.Slice(resolutions, func(i, j int) bool {
