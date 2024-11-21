@@ -35,8 +35,11 @@ For configuration you can use the id when you do a `./wrm list` or if your monit
 
 as you can see you can either use key "monitor" to refere to monitor id, or "monitor_name" to the monitor model name, without both "monitor" and "monitor_name" WRM would run just fine, and if the configuration is loaded it will be fine until you try to apply it, when you apply it it will print out `Monitor index in configuration is out of range.` since the id default to 0 if both "monitor" and "monitor_name" doesn't exist!
 
+> [!NOTE]
+> If configuration uses space in between the name, you will need to add " to apply it, for example `./WRM config "Gaming Setup"` 
+
 #### NOTE
-If configuration uses space in between the name, you will need to add " to apply it, for example `./WRM config "Gaming Setup"` 
+
 
 ## TODO:
 1. ~EVERYTHING! (still working on listing!)~ well... to a certain degree
