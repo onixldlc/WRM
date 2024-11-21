@@ -38,8 +38,6 @@ as you can see you can either use key "monitor" to refere to monitor id, or "mon
 > [!NOTE]
 > If configuration uses space in between the name, you will need to add " to apply it, for example `./WRM config "Gaming Setup"` 
 
-#### NOTE
-
 
 ## TODO:
 1. ~EVERYTHING! (still working on listing!)~ well... to a certain degree
